@@ -1,24 +1,16 @@
 # xl-ui
+### 注意事项  
+本组件基于element-ui开发，所以你的项目需要先安装[element-ui](https://element.eleme.cn/#/zh-CN/component/installation)
 
-## Project setup
+### 开始使用
 ```
-npm install
-```
+import xilan from 'xilan'
+import 'xilan/dist/xl-ui.css'
 
-### Compiles and hot-reloads for development
+Vue.use(xilan)
 ```
-npm run serve
-```
+### 组件列表
++ xl-table
++ xl-filter
++ xl-toolTip
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
