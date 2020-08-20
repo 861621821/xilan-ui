@@ -296,5 +296,8 @@ export default {
       border-color: #e7ebf4
     }
   }
+  .el-pagination{
+    margin-top: 10px
+  }
 }
 </style>
