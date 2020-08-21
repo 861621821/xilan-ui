@@ -11,11 +11,4 @@ import 'xilan/dist/xl-ui.css'
 
 Vue.use(xilan)
 ```
-### 组件列表
-+ xl-table  
-    >支持行内编辑
-+ xl-filter
-    >Popover形式条件过滤组件
-+ xl-toolTip
-    >文本溢出打点，hover时弹气泡显示
 

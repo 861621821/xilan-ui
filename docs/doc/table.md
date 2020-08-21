@@ -2,7 +2,6 @@
 基于[el-table](https://element.eleme.cn/#/zh-CN/component/table)
 #### 用法
 ``` html
-
 <template>
   <l-table
     ref="table"
