@@ -3,7 +3,7 @@
 #### 用法
 ``` html
 <template>
-  <l-table
+  <xl-table
     ref="table"
     :attributes="tableOptions"
     :fields="fields"
@@ -12,7 +12,7 @@
     <template v-slot:demandId="{row}">
       <span class="demandIdSpan" :style="getStyle(row.priority)">{{ row.demandId }}</span>
     </template>
-  </l-table>
+  </xl-table>
 </template>
 <script>
   export default {
@@ -24,7 +24,7 @@
         width: '80px'
       },{
         field: 'priority',
-        label: this.$t('优先级'),
+        label: '优先级',
         type: 'template',
         sortable: true,
         sortMethod: this.sortByPriority,

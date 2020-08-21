@@ -1,6 +1,6 @@
 {
   "name": "xilan",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "private": false,
   "description": "基于element-ui开发的组件库，如可行内编辑的表格，文本溢出打点并hover展示完整文本，持续完善中",
   "main": "./dist/xl-ui.common.js",

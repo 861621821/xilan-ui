@@ -12,7 +12,7 @@ import 'xilan/dist/xl-ui.css'
 Vue.use(xilan)
 ```
 ### 详细文档  
-[github传送门](https://861621821.github.io/xilan)
+[github传送门](https://861621821.github.io/xilan/#/doc/quickstart)
 ### 组件列表
 + xl-table  
     >支持行内编辑

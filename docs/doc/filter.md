@@ -3,7 +3,7 @@
 #### 用法
 ``` html
 <template>
-  <l-filter
+  <xl-filter
     ref="filter"
     :tabOptions="tabOption"
     :filterOptions="filterOptions"
@@ -16,27 +16,27 @@
     data(){
       tabOption: [{
         value:'全部',
-        label: this.$t('全部')
+        label: '全部'
       },{
         value:'未关闭',
-        label: this.$t('未关闭'),
+        label: '未关闭',
         default: true
       },{
         value:'我创建',
-        label: this.$t('我创建')
+        label: '我创建'
       },{
         value:'我取消',
-        label:this.$t('我取消')
+        label:'我取消'
       }],
       dropdownOptions: [{
         value:'待验收',
-        label:this.$t('待验收')
+        label:'待验收'
       },{
         value:'验收中',
-        label:this.$t('验收中')
+        label:'验收中'
       },{
         value:'待更新',
-        label:this.$t('待更新')
+        label:'待更新'
       }],
       filterOptions: [
         {label:'ID',field:'demandId',type:'input'},
