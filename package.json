@@ -1,8 +1,17 @@
 {
   "name": "xilan",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": false,
-  "description": "基于element-ui开发的组件库，如可行内编辑的表格，文本溢出打点并hover展示完整文本，持续完善中",
+  "description": "基于element-ui开发的组件库，如可行内编辑的表格，文本溢出打点并hover展示完整文本，跑马灯，持续完善中",
+  "keywords": [
+    "table",
+    "element-ui",
+    "行内编辑",
+    "跑马灯",
+    "tooltip",
+    "过滤器",
+    "Vue组件"
+  ],
   "main": "./dist/xl-ui.common.js",
   "files": [
     "dist/*",
@@ -19,6 +28,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "create-keyframe-animation": "^0.1.0",
     "element-ui": "^2.13.2",
     "throttle-debounce": "^2.3.0",
     "vue": "^2.6.11"

@@ -1,5 +1,5 @@
 ### 注意事项  
-本组件基于element-ui开发，所以你的项目需要先安装[element-ui](https://element.eleme.cn/#/zh-CN/component/installation)
+部分组件基于element-ui开发，所以你的项目需要先安装[element-ui](https://element.eleme.cn/#/zh-CN/component/installation)
 ### npm安装
 ``` js
 npm i xilan -S
@@ -20,6 +20,8 @@ Vue.use(xilan)
     >Popover形式条件过滤组件
 + xl-tool-tip 
     >当文本过长显示不下时，打点显示，鼠标hover弹出完整文本，只在显示不下时出现
++ xl-marquee
+    >Css3animation动画跑马灯，支持单条或多条文本循环播放
 
 
 

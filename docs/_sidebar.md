@@ -5,3 +5,4 @@
   - [Table表格](doc/table.md)
   - [Filter过滤器](doc/filter.md)
   - [ToolTip提示](doc/tooltip.md)
+  - [Marquee跑马灯](doc/marquee.md)
