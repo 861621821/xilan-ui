@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div style="width: 500px;margin: 0 auto">
-      <xl-marquee :speed="1" :delay="2000" :interval="50" :text="text"></xl-marquee>
+      <xl-marquee :speed="5" :delay="2000" :interval="50" :iterations="1" :text="text"></xl-marquee>
     </div>
   </div>
 </template>

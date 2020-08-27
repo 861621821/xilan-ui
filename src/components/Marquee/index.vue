@@ -25,10 +25,6 @@ export default {
     delay: {
       type: Number,
       default: 0
-    },
-    iterations: {
-      type: Number,
-      default: -1
     }
   },
   data () {
@@ -79,7 +75,7 @@ export default {
             duration: duration,
             easing: 'linear',
             delay: this.delay,
-            iterations: this.iterations > 0 ? this.iterations : 'infinite'
+            iterations: 'infinite'
           }
         })
         animations.runAnimation(this.$refs['marquee-wrapper'], 'marquee')

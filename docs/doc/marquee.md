@@ -1,9 +1,9 @@
-# marquee跑马灯
+# Marquee跑马灯
 基于[create-keyframe-animation](https://www.npmjs.com/package/create-keyframe-animation)
 >文本跑马灯，支持单条文本循环、多条文本循环
 #### 用法
 ``` html
-<xl-marquee speed="" :text="text"></xl-marquee>
+<xl-marquee :speed="5" :delay="1000" :text="text"></xl-marquee>
 
 <script>
   export default {
@@ -25,7 +25,6 @@
 | 参数  | 说明    | 类型 |  默认值 |
 | ---- |  ----  | ----  | ----  |
 | text  | 展示的文本  | String\|Array  | - |
-| speed  | 滚动速度  | String[ fast \| slow \| 无]  | - |
-| iterations | 循环次数  | Number  | 无限循环播放 |
-| delay  | 延时播放  | Array  | 0 |
-| interval  | 两条文本之间的间距  | Array  | 150 |
+| speed  | 滚动速度[ 1-5 ]  | Number  | 3 |
+| delay  | 延时播放[ 毫秒 ]  | Array  | 0 |
+| interval  | 两条文本之间的间距[ px ]  | Array  | 150 |
