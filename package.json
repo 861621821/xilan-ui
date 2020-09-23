@@ -1,8 +1,8 @@
 {
   "name": "xilan",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "private": false,
-  "description": "基于element-ui开发的组件库，如可行内编辑的表格，文本溢出打点并hover展示完整文本，跑马灯，持续完善中",
+  "description": "基于element-ui开发的组件库，如可行内编辑的表格，文本溢出打点并hover展示完整文本，跑马灯，省市区三级联动，持续完善中",
   "keywords": [
     "table",
     "element-ui",
@@ -10,7 +10,8 @@
     "跑马灯",
     "tooltip",
     "过滤器",
-    "Vue组件"
+    "Vue组件",
+    "省市区"
   ],
   "main": "./dist/xl-ui.common.js",
   "files": [

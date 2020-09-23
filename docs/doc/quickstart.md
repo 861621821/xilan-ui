@@ -18,6 +18,10 @@ Vue.use(xilan)
     >Popover形式条件过滤组件
 + [xl-tool-tip](doc/tooltip.md) 
     >当文本过长显示不下时，打点显示，鼠标hover弹出完整文本，只在显示不下时出现
++ [xl-marquee](doc/marquee.md) 
+    >Css3animation动画跑马灯，支持单条或多条文本循环播放
++ [xl-ssq](doc/ssq.md) 
+    >省市区三级联动组件，支持搜索
 
 
 
