@@ -88,8 +88,6 @@
 <script>
 import { debounce } from 'throttle-debounce'
 export default {
-  components: {
-  },
   props: {
     // 父组件传过来的数据 如果存在getDataHandler，data数据会被覆盖
     data: {

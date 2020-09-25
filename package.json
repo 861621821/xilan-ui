@@ -1,6 +1,6 @@
 {
   "name": "xilan",
-  "version": "0.2.0",
+  "version": "0.2.12",
   "private": false,
   "description": "基于element-ui开发的组件库，如可行内编辑的表格，文本溢出打点并hover展示完整文本，跑马灯，省市区三级联动，持续完善中",
   "keywords": [
@@ -11,7 +11,7 @@
     "tooltip",
     "过滤器",
     "Vue组件",
-    "省市区"
+    "省市区三级联动"
   ],
   "main": "./dist/xl-ui.common.js",
   "files": [

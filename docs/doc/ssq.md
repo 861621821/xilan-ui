@@ -4,7 +4,7 @@
 #### 基础用法  
 ``` html
 <template>
-  <xl-ssq v-model="ssq"></xl-ssq>
+  <xl-cascader v-model="ssq"></xl-cascader>
 </template>
 <script>
   export default {
@@ -18,7 +18,7 @@
 #### 自定义数据源
 ``` html
 <template>
-  <xl-ssq v-model="ssq" :data="ssqData"></xl-ssq>
+  <xl-cascader v-model="ssq" :data="ssqData"></xl-cascader>
 </template>
 <script>
   export default {

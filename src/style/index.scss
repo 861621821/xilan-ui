@@ -50,5 +50,8 @@ html{
     div {
       @include base-scrollbar;
     }
+    .ssq-cascader .el-tabs__content{
+      display: none!important
+    }
   }
 }

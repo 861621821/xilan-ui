@@ -13,7 +13,7 @@
 
 <script>
 import xlMarquee from '@/components/Marquee/index.vue'
-import xlSsq from '@/components/SsqCascader/index.vue'
+import xlSsq from '@/components/Cascader/index.vue'
 export default {
   name: 'App',
   components: {

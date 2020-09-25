@@ -21,3 +21,7 @@ html body div::-webkit-scrollbar-track {
 html body div::-webkit-scrollbar-track:hover {
   background-color: #f8fafc;
 }
+
+html body .ssq-cascader .el-tabs__content {
+  display: none !important;
+}

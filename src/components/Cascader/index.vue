@@ -102,8 +102,6 @@ export default {
             return e.name.indexOf(n) > -1
           })
           break
-        default:
-          break
       }
     }
   },
@@ -185,9 +183,6 @@ export default {
 
 <style lang="scss" scoped>
 ::v-deep{
-  .el-tabs__item{
-    color: #BBBBBB
-  }
   .el-scrollbar__bar{
     right: 0;
   }
@@ -217,8 +212,7 @@ export default {
 .prov-list,.city-list,.region-list{
   height: 300px;
   width: 33.3%;
-  overflow: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
   float: left;
   .list-item{
     display: block;
