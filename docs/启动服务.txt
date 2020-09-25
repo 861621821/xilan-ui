@@ -1,2 +1,0 @@
-全局安装npm i docsify-cli -g
-1.执行docsify serve Docsify （Docsify为项目所在文件名）
