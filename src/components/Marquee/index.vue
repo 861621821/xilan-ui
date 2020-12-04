@@ -11,14 +11,14 @@ export default {
       default: 'left'
     },
     speed: {
-      type: Number,
+      type: [Number, String],
       default: 3
     },
     interval: {
       type: Number,
       default: 150
     },
-    text: {
+    content: {
       type: [String, Array],
       default: ''
     },
@@ -34,12 +34,12 @@ export default {
   computed: {
     marqueeHtml(){
       let marqueeHtml
-      if (typeof this.text === 'string'){
-        marqueeHtml = `<span class="marquee-item">${this.text}</span><span style="display: inline-block;width: ${this.interval}px"></span><span class="marquee-item">${this.text}</span>`
+      if (typeof this.content === 'string'){
+        marqueeHtml = `<span class="marquee-item">${this.content}</span><span style="display: inline-block;width: ${this.interval}px"></span><span class="marquee-item">${this.content}</span>`
       } else {
         let htmlItem = ''
-        this.text.map((e,i)=>{
-          if (i < this.text.length - 1){
+        this.content.map((e,i)=>{
+          if (i < this.content.length - 1){
             htmlItem += `<span>${e}</span><span style="display: inline-block;width: ${this.interval}px"></span>`
           } else {
             htmlItem += `<span>${e}</span>`
@@ -58,7 +58,13 @@ export default {
       const animations = require('create-keyframe-animation')
       const boxW = this.$refs.marquee.offsetWidth
       const textW = document.querySelector('.marquee-item').offsetWidth
-      const duration = (textW + this.interval) / 1000 * (30000 / this.speed)
+      let speed
+      if(this.speed < 1){
+        speed = 1
+      } else if(this.speed > 5){
+        speed = 5
+      } else speed = this.speed
+      const duration = (textW + this.interval) / 1000 * (30000 / speed)
       if(textW > boxW){ // 需要滚动
         animations.registerAnimation({
           name: 'marquee',

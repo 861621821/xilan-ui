@@ -111,7 +111,6 @@ export default {
       s.type = 'text/javascript';
       s.src = 'https://webapi.amap.com/maps?v=1.4.15&key=d1b80b9c953f8313296e0a1e7dd9d7d3';
       document.body.appendChild(s);
-      document.addEventListener('click', this.closeCascader)
     }
     if(this.data){
       this.sourceProvData  = this.data
@@ -171,6 +170,19 @@ export default {
       this.regionData = []
       this.$emit('input', [this.prov, this.city, this.region])
       this.visible = false
+    },
+    reset(){
+      this.ssq = '',
+      this.activeName = '0'
+      this.sourceProvData = [],
+      this.sourceCityData = [],
+      this.sourceRegionData = [],
+      this.provData = [],
+      this.cityData = [],
+      this.regionData = [],
+      this.prov = '',
+      this.city = '',
+      this.region = ''
     }
   }
 }

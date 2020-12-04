@@ -1,15 +1,14 @@
 {
   "name": "xilan",
-  "version": "0.2.12",
+  "version": "0.3.0",
   "private": false,
-  "description": "基于element-ui开发的组件库，如可行内编辑的表格，文本溢出打点并hover展示完整文本，跑马灯，省市区三级联动，持续完善中",
+  "description": "基于element-ui开发的组件库，如可行内编辑的表格，跑马灯，省市区三级联动，持续完善中",
   "keywords": [
     "table",
     "element-ui",
-    "行内编辑",
+    "行内编辑表格",
     "跑马灯",
     "tooltip",
-    "过滤器",
     "Vue组件",
     "省市区三级联动"
   ],

@@ -1,8 +1,10 @@
 <template>
-  <div id="l-table">
+  <div id="xl-table">
     <el-table
       :data="tableData"
       v-bind="attributes"
+      stripe
+      border
       style="width: 100%"
       @cell-mouse-enter="showEdit"
       @cell-mouse-leave="hideEdit"
@@ -26,6 +28,7 @@
 
         <el-table-column
           v-else-if="item.type === 'edit'"
+          class-name="xl-td-eite"
           :prop="item.field"
           :key="item.field"
           :label="item.label"
@@ -36,7 +39,10 @@
         >
           <template slot-scope="{ row }">
             <template v-if="row.edit &&  item.field === currentHover && tableData.indexOf(row) === currentIndex">
-              <el-input ref="input" v-model="row.editValue" size="mini" @keyup.enter.native="hideInput($event,item.field,row)"/>
+              <el-select v-if="item.editType === 'select'" size="mini" v-model="row.editValue" @visible-change="editFocus" @change="hideInput(item.field, row)">
+                <el-option v-for="item in item.editOptions" :key="item.value" :label="item.label" :value="item.value"/>
+              </el-select>
+              <el-input v-else ref="input" clearable class="inline-edit-input" v-model="row.editValue" size="mini" @keyup.enter.native="hideInput(item.field, row)"/>
             </template>
             <span v-else class="is-edit">
               {{ row[item.field] }}
@@ -73,16 +79,19 @@
         ></el-table-column>
       </template>
     </el-table>
-    <el-pagination
-      background
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="params.page"
-      :page-sizes="[20, 50, 100]"
-      :page-size="params.pageSize"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total"
-    ></el-pagination>
+    <div class="table-pagination-area">
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="params.page"
+        :page-sizes="[20, 50, 100]"
+        :page-size="params.pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+        :class="{fixedPagination}"
+      ></el-pagination>
+    </div>
   </div>
 </template>
 <script>
@@ -113,10 +122,30 @@ export default {
       type: Function,
       default(){}
     },
+    // 是否立即请求数据
+    immediate: {
+      type: Boolean,
+      default: true
+    },
     // 行内编辑成功的回调方法
     editHandler:{
       type: Function,
       default(){}
+    },
+    // 是否开启悬浮分页
+    floatPaging: {
+      type: Boolean,
+      default: false
+    },
+    // table所在页面的根节点
+    el: {
+      type: HTMLDivElement,
+      default(){}
+    },
+    // 页面中除table外的元素占去的高度
+    distance: {
+      type: Number,
+      default: 0
     }
   },
   data () {
@@ -132,7 +161,11 @@ export default {
       getData: null,
       currentHover: null, //当前鼠标hover的单元格
       currentIndex: null, //当前鼠标hover的单元格
-      filterArr: [] // 支持过滤的字段
+      filterArr: [], // 支持过滤的字段
+      inlineEditFocus: false,
+      scrollDebounce: null,
+      showFixedHead: false,
+      fixedPagination: false
     }
   },
   watch: {
@@ -168,10 +201,29 @@ export default {
         })
       },
       immediate: true
+    },
+    $route(){
+      this.removeEventListener()
     }
   },
   mounted () {
+    const _this = this
     this.getData = debounce(200, this.query)
+    if(!this.data.length && this.immediate){
+      this.getData()
+    }
+    this.scrollDebounce = function() {
+      return debounce(50, _this.scrollHandle).apply(_this, arguments)
+    }
+    setTimeout(()=>{
+      this.addEventListener()
+      this.initScroll()
+    })
+  },
+  activated() {
+    setTimeout(()=>{
+      this.addEventListener()
+    })
   },
   methods: {
     async query(obj){
@@ -181,6 +233,7 @@ export default {
       const {data} = await this.getDataHandler({ ...this.params, ...obj })
       this.tableData = data.list
       this.total = data.total
+      this.initScroll()
     },
     async refreshData(){
       const {data} = await this.getDataHandler(this.lastParams)
@@ -208,23 +261,26 @@ export default {
       }
     },
     showEdit(row, column){
-      this.currentIndex = this.tableData.indexOf(row)
-      this.currentHover = column.property
+      if(!this.inlineEditFocus){
+        this.currentIndex = this.tableData.indexOf(row)
+        this.currentHover = column.property
+      }
     },
     hideEdit(row){
-      delete row.edit
-      this.currentHover = null
-      this.currentIndex = null
+      if(!this.inlineEditFocus){
+        delete row.edit
+        this.currentHover = null
+        this.currentIndex = null
+      }
     },
     showInput(field,row){
       this.$set(row,'edit',true)
       this.$set(row,'editValue',row[field])
     },
-    hideInput(e,field,row){
-      delete row.edit
-      delete row.editValue
-      row[field] = e.target.value
-      this.editHandler([row])
+    hideInput(field,row){
+      this.hideEdit(row)
+      row[field] = row.value
+      this.editHandler(row)
     },
     generateSortFun(funBody){
       var sortMethod = null 
@@ -237,20 +293,57 @@ export default {
     },
     filterMethod(value, row, column){
       return row[column.property] === value
+    },
+    editFocus(status){
+      this.inlineEditFocus = status
+    },
+    onSelect(selection, row) {
+      this.selectList = selection
+      this.$emit('select', selection, row)
+    },
+    onSelectChange(selection) {
+      this.$emit('select-change', selection)
+    },
+    onSelectAll(selection) {
+      this.selectList = selection
+      this.$emit('select-all', selection)
+    },
+    addEventListener() {
+      if(this.floatPaging){
+        this.el.addEventListener('scroll', this.scrollDebounce)
+      }
+    },
+    removeEventListener() {
+      if(this.floatPaging && this.el){
+        this.el.removeEventListener('scroll', this.scrollDebounce)
+      }
+    },
+    scrollHandle() {
+      const clientHeight = document.documentElement.clientHeight // 可视区高度
+      const pageingBottom = document.querySelector('.table-pagination-area').getBoundingClientRect().bottom
+      this.fixedPagination = clientHeight - pageingBottom  < this.distance
+    },
+    initScroll() {
+      // 手动触发一次scroll
+      if(this.floatPaging){
+        const event = document.createEvent('Event')
+        event.initEvent('scroll', true, true)
+        this.el.dispatchEvent(event)
+      }
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-#l-table{
+#xl-table{
   ::v-deep{
     .iconfont{
       color: #E60012;
       margin: 0 3px;
       cursor: pointer;
     }
-    .cell{
-      line-height: 28px!important;
+    .xl-td-eite{
+      padding: 0
     }
     .el-table{
       border-radius: 8px;
@@ -293,9 +386,38 @@ export default {
     .el-table--border th, .el-table--border td,.el-table th.is-leaf, .el-table td{
       border-color: #e7ebf4
     }
+    .inline-edit-input .el-input__inner{
+      border-radius: 4px
+    }
   }
-  .el-pagination{
-    margin-top: 10px
+  .table-pagination-area {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: flex-end;
+    transition: all .3s;
+    .el-pagination{
+      width: 100%;
+      height: 60px;
+      text-align: right;
+      display: flex;
+      left: 0;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 2px 10px;
+      box-sizing: border-box;
+    }
+  }
+  .fixedPagination{
+    box-shadow: 0 0 10px rgba(0,0,0,0.12);
+    transition: all .3s;
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+    z-index: 99;
+    li,button,input{
+      background: #f5f7fa;
+    }
   }
 }
 </style>

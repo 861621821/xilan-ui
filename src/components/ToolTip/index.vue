@@ -2,22 +2,22 @@
   <div id="tooltip">
     <el-tooltip
       ref="tlp"
-      :content="text"
+      :content="content"
       effect="dark"
       :disabled="!tooltipFlag"
       :placement="placement"
       class="tooltip"
     >
-      <span :class="className" @mouseenter="visibilityChange($event)">{{ text }}</span>
+      <span :class="className" @mouseenter="visibilityChange($event)">{{ content }}</span>
     </el-tooltip>
-    <span class="contrast">{{ text }}</span>
+    <span class="contrast">{{ content }}</span>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    text: { type: String, default: '' }, // 字符内容
+    content: { type: String, default: '' }, // 字符内容
     placement: { type: String, default: 'top' },
     className: { type: String, default: 'text-content' } // class
   },
