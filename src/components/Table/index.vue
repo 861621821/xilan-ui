@@ -39,10 +39,10 @@
         >
           <template slot-scope="{ row }">
             <template v-if="row.edit &&  item.field === currentHover && tableData.indexOf(row) === currentIndex">
-              <el-select v-if="item.editType === 'select'" size="mini" v-model="row.editValue" @visible-change="editFocus" @change="hideInput(item.field, row)">
+              <el-select v-if="item.editType === 'select'" size="mini" v-model="row.value" @visible-change="editFocus" @change="hideInput(item.field, row)">
                 <el-option v-for="item in item.editOptions" :key="item.value" :label="item.label" :value="item.value"/>
               </el-select>
-              <el-input v-else ref="input" clearable class="inline-edit-input" v-model="row.editValue" size="mini" @keyup.enter.native="hideInput(item.field, row)"/>
+              <el-input v-else ref="input" clearable class="inline-edit-input" v-model="row.value" size="mini" @keyup.enter.native="hideInput(item.field, row)"/>
             </template>
             <span v-else class="is-edit">
               {{ row[item.field] }}
@@ -137,9 +137,8 @@ export default {
       type: Boolean,
       default: false
     },
-    // table所在页面的根节点
+    // 产生滚动的元素
     el: {
-      type: HTMLDivElement,
       default(){}
     },
     // 页面中除table外的元素占去的高度
@@ -201,9 +200,6 @@ export default {
         })
       },
       immediate: true
-    },
-    $route(){
-      this.removeEventListener()
     }
   },
   mounted () {
@@ -275,7 +271,7 @@ export default {
     },
     showInput(field,row){
       this.$set(row,'edit',true)
-      this.$set(row,'editValue',row[field])
+      this.$set(row,'value',row[field])
     },
     hideInput(field,row){
       this.hideEdit(row)
@@ -310,18 +306,13 @@ export default {
     },
     addEventListener() {
       if(this.floatPaging){
-        this.el.addEventListener('scroll', this.scrollDebounce)
-      }
-    },
-    removeEventListener() {
-      if(this.floatPaging && this.el){
-        this.el.removeEventListener('scroll', this.scrollDebounce)
+        this.el.onscroll = this.scrollDebounce
       }
     },
     scrollHandle() {
       const clientHeight = document.documentElement.clientHeight // 可视区高度
       const pageingBottom = document.querySelector('.table-pagination-area').getBoundingClientRect().bottom
-      this.fixedPagination = clientHeight - pageingBottom  < this.distance
+      this.fixedPagination = clientHeight - pageingBottom  < -this.distance
     },
     initScroll() {
       // 手动触发一次scroll
@@ -404,13 +395,11 @@ export default {
       left: 0;
       justify-content: flex-end;
       align-items: center;
-      padding: 2px 10px;
       box-sizing: border-box;
     }
   }
   .fixedPagination{
     box-shadow: 0 0 10px rgba(0,0,0,0.12);
-    transition: all .3s;
     position: fixed;
     bottom: 0;
     background: #fff;
